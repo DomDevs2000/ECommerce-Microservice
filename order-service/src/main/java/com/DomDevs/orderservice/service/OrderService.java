@@ -5,6 +5,7 @@ import com.DomDevs.orderservice.dto.OrderRequest;
 import com.DomDevs.orderservice.model.Order;
 import com.DomDevs.orderservice.model.OrderLineItems;
 import com.DomDevs.orderservice.repository.OrderRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,12 @@ public class OrderService {
 
     public void placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
-        order.setOrderNumber(UUID.randomUUID().toString());
+        order.setOrderNumber(String.valueOf(UUID.randomUUID()));
 
-        List<OrderLineItems> orderLineItems = orderRequest.getOrderLineItemsList().stream().map(this::mapToDto).toList();
+        List<OrderLineItems> orderLineItems = orderRequest.getOrderLineItemsDtoList()
+                .stream()
+                .map(this::mapToDto)
+                .toList();
 
         order.setOrderLineItemsList(orderLineItems);
         orderRepository.save(order);
@@ -34,6 +38,5 @@ public class OrderService {
         orderLineItems.setQuantity(orderLineItemsDto.getQuantity());
         orderLineItems.setSkuCode(orderLineItemsDto.getSkuCode());
         return orderLineItems;
-
     }
 }
