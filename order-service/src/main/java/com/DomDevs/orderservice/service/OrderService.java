@@ -7,6 +7,7 @@ import com.DomDevs.orderservice.model.OrderLineItems;
 import com.DomDevs.orderservice.repository.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +15,14 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
 
     public void placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
-        order.setOrderNumber(String.valueOf(UUID.randomUUID()));
+        order.setOrderNumber(UUID.randomUUID().toString());
 
         List<OrderLineItems> orderLineItems = orderRequest.getOrderLineItemsDtoList()
                 .stream()
