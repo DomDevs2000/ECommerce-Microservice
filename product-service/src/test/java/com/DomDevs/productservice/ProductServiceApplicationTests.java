@@ -1,7 +1,6 @@
-package com.DomDevs.EcommerceService;
+package com.DomDevs.productservice;
 
-import com.DomDevs.EcommerceService.dto.ProductRequest;
-import com.DomDevs.EcommerceService.repository.ProductRepository;
+import com.DomDevs.productservice.dto.ProductRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.utility.DockerImageName;
 
 import java.math.BigDecimal;
@@ -25,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @Testcontainers
 @AutoConfigureMockMvc
-class EcommerceServiceApplicationTests {
+class ProductServiceApplicationTests {
     @Container
     static final MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:4.0.10"));
     @Autowired
