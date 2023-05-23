@@ -42,7 +42,7 @@ public class OrderService {
                 .bodyToMono(Boolean.class)
                 .block();
 
-        if(result){
+        if (result) {
             orderRepository.save(order);
         } else throw new IllegalArgumentException("Product Not In Stock");
 
