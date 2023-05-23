@@ -23,7 +23,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
 
-    @Transactional(readOnly = true)
     public void placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
