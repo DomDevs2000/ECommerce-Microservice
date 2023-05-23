@@ -22,5 +22,5 @@ public class Inventory {
 
     private String skuCode;
     private Integer quantity;
-    private BigDecimal price;
+
 }
