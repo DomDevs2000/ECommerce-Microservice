@@ -44,7 +44,7 @@ public class OrderService {
 
         // webclient makes request to inventory service with sku code as parameter
         InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
-                .uri("http://localhost:8082/api/inventory",
+                .uri("http://inventory-service/api/inventory",
                         uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes)
                                 .build())
                 .retrieve()
