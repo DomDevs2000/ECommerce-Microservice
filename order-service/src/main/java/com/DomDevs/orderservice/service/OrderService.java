@@ -26,7 +26,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
-    private final KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate<String, OrderPlacedEvent> kafkaTemplate;
 
 
     public String placeOrder(OrderRequest orderRequest) {
@@ -60,7 +60,7 @@ public class OrderService {
 
         if (allProductsInStock) {
             orderRepository.save(order);
-            kafkaTemplate.send("NotificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
+            kafkaTemplate.send("notificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
             log.info("Order Placed Successfully");
             return "Order Placed Successfully";
         } else {
