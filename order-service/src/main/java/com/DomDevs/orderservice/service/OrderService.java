@@ -3,6 +3,7 @@ package com.DomDevs.orderservice.service;
 import com.DomDevs.orderservice.dto.InventoryResponse;
 import com.DomDevs.orderservice.dto.OrderLineItemsDto;
 import com.DomDevs.orderservice.dto.OrderRequest;
+import com.DomDevs.orderservice.event.OrderPlacedEvent;
 import com.DomDevs.orderservice.model.Order;
 import com.DomDevs.orderservice.model.OrderLineItems;
 import com.DomDevs.orderservice.repository.OrderRepository;
@@ -59,7 +60,7 @@ public class OrderService {
 
         if (allProductsInStock) {
             orderRepository.save(order);
-            kafkaTemplate.send("NotificationTopic", order.getOrderNumber());
+            kafkaTemplate.send("NotificationTopic", new OrderPlacedEvent(order.getOrderNumber()));
             log.info("Order Placed Successfully");
             return "Order Placed Successfully";
         } else {
