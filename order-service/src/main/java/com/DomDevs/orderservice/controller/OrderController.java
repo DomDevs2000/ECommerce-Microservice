@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.CompletableFuture;
+
 @RestController
 @RequestMapping("/api/order")
 @RequiredArgsConstructor
@@ -17,13 +19,13 @@ public class OrderController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @CircuitBreaker(name="inventory", fallbackMethod = "fallbackMethod")
-    public String placeOrder(@RequestBody OrderRequest orderRequest){
-        orderService.placeOrder(orderRequest);
-        return "Order Placed Successfully";
+    public CompletableFuture<String> placeOrder(@RequestBody OrderRequest orderRequest){
+        return CompletableFuture.supplyAsync(()-> orderService.placeOrder(orderRequest));
+
     }
 
-    public String fallbackMethod(OrderRequest orderRequest, RuntimeException runtimeException){
-        return "Oops! Something Went Wrong, Please Try Again Later";
+    public CompletableFuture<String> fallbackMethod(OrderRequest orderRequest, RuntimeException runtimeException){
+        return CompletableFuture.supplyAsync(()-> "Oops! Something Went Wrong, Please Try Again Later.");
 
     }
 
