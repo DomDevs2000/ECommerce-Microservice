@@ -6,8 +6,6 @@ import com.DomDevs.orderservice.dto.OrderRequest;
 import com.DomDevs.orderservice.model.Order;
 import com.DomDevs.orderservice.model.OrderLineItems;
 import com.DomDevs.orderservice.repository.OrderRepository;
-
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +26,7 @@ public class OrderService {
     private final WebClient.Builder webClientBuilder;
 
 
-    public void placeOrder(OrderRequest orderRequest) {
+    public String placeOrder(OrderRequest orderRequest) {
         Order order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
 
@@ -59,6 +57,7 @@ public class OrderService {
 
         if (allProductsInStock) {
             orderRepository.save(order);
+            return "Order Placed Successfully";
         } else {
             throw new IllegalArgumentException("Product Not In Stock");
         }
