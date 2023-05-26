@@ -57,6 +57,7 @@ public class OrderService {
 
         if (allProductsInStock) {
             orderRepository.save(order);
+            log.info("Order Placed Successfully");
             return "Order Placed Successfully";
         } else {
             throw new IllegalArgumentException("Product Not In Stock");
