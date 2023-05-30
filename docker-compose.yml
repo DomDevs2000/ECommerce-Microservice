@@ -148,8 +148,16 @@ services:
     expose:
       - "8080"
     environment:
-      - "SPRING_PROFILES_ACTIVE=docker"
-      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY= TRACE
+      SPRING_APPLICATION_JSON: '{
+                "server.port":"8080",
+  "eureka.client.serviceUrl.defaultZone" : "http://discovery-server:8761/eureka",
+  "spring.security.oauth2.resourceserver.jwt.issuer-uri" : "http://keycloak:8181/realms/dom-devs-ecommerce-microservice",
+  "management.zipkin.tracing.endpoint" : "http://zipkin:9411",
+  "app.eureka-server" : "discovery-server",
+  "logging.level.org.springframework.security" : "trace"
+                               }'
+    #      - "SPRING_PROFILES_ACTIVE=docker"
+    #      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY= TRACE
     depends_on:
       - zipkin
       - discovery-server
