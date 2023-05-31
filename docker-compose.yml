@@ -1,37 +1,6 @@
 version: '3.7'
 services:
-  #  postgres-order:
-  #    container_name: postgres-order
-  #    image: postgres
-  #    environment:
-  #      POSTGRES_DB: order-service
-  #      POSTGRES_USER: postgres
-  #      POSTGRES_PASSWORD: password
-  #      PGDATA: /data/postgres
-  #    volumes:
-  #      - /postgres-order:/data/postgres
-  #    expose:
-  #      - "5433"
-  #    ports:
-  #      - "5433:5432"
-  #    command: -p 5433
-  #    restart: always
-  #
-  #
-  #
-  #  postgres-inventory:
-  #    container_name: postgres-inventory
-  #    image: postgres
-  #    environment:
-  #      POSTGRES_DB: inventory-service
-  #      POSTGRES_USER: postgres
-  #      POSTGRES_PASSWORD: password
-  #      PGDATA: /data/postgres
-  #    volumes:
-  #      - /postgres-inventory:/data/postgres
-  #    ports:
-  #      - "5434:5432"
-  #    restart: always
+ # MYSQL DB For Order Service
   mysql-db-order:
     container_name: mysql-db-order
     image: mysql:latest
@@ -44,7 +13,7 @@ services:
     ports:
       - "3307:3306"
 
-
+  # MYSQL DB For Inventory Service
   mysql-db-inventory:
     container_name: mysql-db-inventory
     image: mysql:latest
@@ -57,10 +26,7 @@ services:
     ports:
       - "3308:3306"
 
-
-
-
-      # Mongo Docker Compose Config
+  # Mongo Docker Compose Config
   mongo:
     container_name: mongo
     image: mongo:4.4.14-rc0-focal
@@ -71,7 +37,7 @@ services:
       - "27017"
     volumes:
       - ./mongo-data:/data/db
-
+  # Keycloak MySQL Docker Compose Config
   keycloak-mysql:
     container_name: keycloak-mysql
     image: mysql:latest
@@ -83,7 +49,7 @@ services:
       MYSQL_USER: keycloak
       MYSQL_PASSWORD: password
 
-
+  # Keycloak  Docker Compose Config
   keycloak:
     container_name: keycloak
     image: quay.io/keycloak/keycloak:21.1.1
@@ -101,6 +67,7 @@ services:
     depends_on:
       - keycloak-mysql
 
+  # Kafka  Zookeeper Docker Compose Config
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
     container_name: zookeeper
@@ -109,7 +76,7 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-
+  # Kafka  Broker Docker Compose Config
   broker:
     image: confluentinc/cp-kafka:7.0.1
     container_name: broker
@@ -126,7 +93,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
-    ## Zipkin
+  # Zipkin
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
@@ -147,6 +114,7 @@ services:
     depends_on:
       - zipkin
 
+  # API Gateway
   api-gateway:
     image: domdevs/api-gateway:latest
     container_name: api-gateway
@@ -163,14 +131,12 @@ services:
             "app.eureka-server" : "discovery-server",
             "logging.level.org.springframework.security" : "trace"
                                }'
-    #      - "SPRING_PROFILES_ACTIVE=docker"
-    #      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY= TRACE
     depends_on:
       - zipkin
       - discovery-server
       - keycloak
 
-    ## Product-Service Docker Compose Config
+  # Product-Service Docker Compose Config
   product-service:
     container_name: product-service
     image: domdevs/product-service:latest
@@ -184,13 +150,12 @@ services:
         "server.port" : "8080",
         "eureka.client.serviceUrl.defaultZone" : "http://discovery-server:8761/eureka"
                                      }'
-
     depends_on:
       - mongo
       - discovery-server
       - api-gateway
 
-    ## Order-Service Docker Compose Config
+  # Order-Service Docker Compose Config
   order-service:
     container_name: order-service
     image: domdevs/order-service:latest
@@ -213,7 +178,7 @@ services:
       - discovery-server
       - api-gateway
 
-    ## Inventory-Service Docker Compose Config
+  # Inventory-Service Docker Compose Config
   inventory-service:
     container_name: inventory-service
     image: domdevs/inventory-service:latest
@@ -235,7 +200,7 @@ services:
       - api-gateway
 
 
-      ## Notification-Service Docker Compose Config
+    # Notification-Service Docker Compose Config
   notification-service:
     container_name: notification-service
     image: domdevs/notification-service:latest
