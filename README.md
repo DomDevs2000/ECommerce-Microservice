@@ -22,7 +22,7 @@ Docker,
 Resilience4J (Circuit Breaker),
 MySQL,
 MongoDB,
-Zipkin (Distributed Tracing0,
+Zipkin (Distributed Tracing),
 JUnit5 (Unit Testing)
 MockMVC (Unit Testing)
 TestContainers(Integration Testing)
