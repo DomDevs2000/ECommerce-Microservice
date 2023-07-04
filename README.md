@@ -1,10 +1,10 @@
+View this project in [GitHub](https://github.com/DomDevs2000/ECommerce-Microservice)
 
-# What Is This Project About
+# Project Description
 
 For this project, I developed a fully integrated E-commerce service that allows users to create orders, check products
 and inventory and successfully place orders if products are in stock.
-Functionality includes product and inventory queries, order placements, event-driven email notifications using Kafka, if orders are placed
-successfully, OAuth 2.0 JWT authentication, inter-service communication using Spring Cloud Netflix Eureka, inter-service
+Functionality includes product and inventory queries, order placements, and event-driven notifications using Kafka once orders are successfully placed. Ensured security with Spring WebFlux Security and OAuth 2.0 JWT authentication. Implemeneted inter-service communication using Spring Cloud Netflix Eureka with inter-service
 fault tolerance using Spring Cloud Circuit Breaker via the Resilience4j library.
 Ensured website functionality with comprehensive unit testing using JUnit5 and MockMvc and integration testing using
 TestContainers.
@@ -12,25 +12,24 @@ This entire project is Dockerized using, Docker, Docker Hub and Google Cloud Jib
 
 # Technologies Used
 
-Java 17,
-Spring Boot 3.0.5,
-Spring Security,
-Spring Cloud Netflix Eureka(Service Discovery),
-Apache Kafka (Event-Driven Architecture),
-KeyCloak (OAuth 2.0 JWT)
-Docker,
-Resilience4J (Circuit Breaker),
-MySQL,
-MongoDB,
-Zipkin (Distributed Tracing),
-JUnit5 (Unit Testing)
-MockMVC (Unit Testing)
-TestContainers(Integration Testing)
+-   Java 17,
+-   Spring Boot 3.0.5,
+-   Spring Security,
+-   Spring Cloud Netflix Eureka(Service Discovery),
+-   Apache Kafka (Event-Driven Architecture),
+-   KeyCloak (OAuth 2.0 JWT)
+-   Docker,
+-   Resilience4J (Circuit Breaker),
+-   MySQL,
+-   MongoDB,
+-   Zipkin (Distributed Tracing),
+-   JUnit5 (Unit Testing)
+-   MockMVC (Unit Testing)
+-   TestContainers(Integration Testing)
 
+# Microservice Architecture
 
-# Micro-Service Architecture
-
-![ECommerce Microservice Architecture](https://github.com/DomDevs2000/ECommerce-Microservice/assets/109763238/ea9f5103-f464-49cd-b6c0-353aa66d0438)
+![Architecture](/images/projects/ecommerce-microservice/ECommerce-Microservice-Architecture.drawio.png)
 
 # API Endpoints
 
@@ -38,36 +37,35 @@ TestContainers(Integration Testing)
 
 To view the product catalog, please make a HTTP GET request to `/api/product`
 To create a product for the product catalog, please make a HTTP POST request to `/api/product/create` with the body in
-JSON,
-here is an example:
+JSON, here is an example:
 
- ```
- {
-    "name": "iphone_12_black",
-    "description": "Black iPhone 12",
-    "price": 1000
- }
- ```
+```
+{
+   "name": "iphone_12_black",
+   "description": "Black iPhone 12",
+   "price": 1000
+}
+```
 
 ### Inventory Service
 
-To view the inventory, please make a HTTP GET request to `/api/inventory?skuCode={skuCode}`. This will return the
+To view the inventory, make a HTTP GET request to `/api/inventory?skuCode={skuCode}`. This will return the
 queried product, it's quantity count and will state if its in stock or not.
 
 ### Order Service
 
-To create an order, please make a HTTP POST request to `/api/order` with the body in JSON,
+To create an order, make a HTTP POST request to `/api/order` with the body in JSON,
 here is an example:
 
- ```
- { 
- "orderLineItemsDto": {
-    "name": "iphone_12_black",
-    "quantity": "1",
-    "price": 1000
-    }
- }
- ```
+```
+{
+"orderLineItemsDto": {
+   "name": "iphone_12_black",
+   "quantity": "1",
+   "price": 1000
+   }
+}
+```
 
 The order service will query the inventory service, if the requested item is in stock, the order will be placed
 successfully, otherwise it will send a response stating that the product is not in stock.
@@ -77,4 +75,6 @@ successfully, otherwise it will send a response stating that the product is not 
 The entire project is dockerized, using Google Cloud Jib to create a docker image of each microservice, which
 automatically pushes each build to a remote repository (Docker Hub), where the docker compose file will pull and run
 these containers. 3rd-party services, such as Kafka, Key Cloak and ZipKin are also run via docker compose by pulling and spinning up
-their respective containers. 
+their respective containers. I am currently in the process of deploying this project using kubernetes via K8s.
+
+
