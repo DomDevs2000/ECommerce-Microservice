@@ -29,7 +29,7 @@ This entire project is Dockerized using, Docker, Docker Hub and Google Cloud Jib
 
 # Microservice Architecture
 
-![Architecture](/images/projects/ecommerce-microservice/ECommerce-Microservice-Architecture.drawio.png)
+![Architecture](https://github.com/DomDevs2000/ECommerce-Microservice/assets/109763238/c731940f-ad27-433e-9d89-2c182403294b)
 
 # API Endpoints
 
