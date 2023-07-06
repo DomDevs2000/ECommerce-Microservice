@@ -65,7 +65,7 @@ JSON, here is an example:
 ### Inventory Service
 
 To view the inventory, make a HTTP GET request to `/api/inventory?skuCode={skuCode}`. This will return the
-queried product, it's quantity count and will state if its in stock or not.
+queried product, and will state if its in stock or not.
 
 ![Is In Stock](https://github.com/DomDevs2000/microservice-images/assets/109763238/7e1ba039-1008-489d-bd9c-17257dc85579)
 
@@ -97,12 +97,11 @@ successfully, otherwise it will send a response stating that the product is not 
 ![Order Placed](https://github.com/DomDevs2000/microservice-images/assets/109763238/86c97f2d-1ae0-4133-a19e-28ca676c061b)
 
 
-
 ### Notification Service
 
 Once the order is successfully placed, the notification service (powered by kafka) will return in the logs including the auto generated order id.
 
-![Notification](https://github.com/DomDevs2000/microservice-images/assets/109763238/82802670-f245-4ed7-a729-249e9d190434)
+![Notification](https://github.com/DomDevs2000/microservice-images/assets/109763238/0d9f58cc-130b-4453-849c-caf111cd33fb)
 
 
 ### Zipkin - Distributed Tracing
@@ -113,7 +112,7 @@ Zipkin allows us to see the traces of each HTTP request. ZipKin helps gather tim
 
 # Testing
 I implemented integration testing in this project, utilising the TestContainers plugin. This test allows me to spin up a container with a database, build and save or search that object in the database. 3 services were tested (Product, Inventory and Order) ensuring that the services' main function was carried out.
-
+#### Inventory Service
 For example, this tests the inventory service and checks that the inventory was queried. The first test checks the container is running.
 ![Inventory Test](https://github.com/DomDevs2000/microservice-images/assets/109763238/742b9b61-38f6-4c2e-b89d-a5d7e6fc8d21)
 
@@ -121,16 +120,20 @@ Here we can see in the logs that the inventory was in fact checked, as the Inven
 ![Logs](https://github.com/DomDevs2000/microservice-images/assets/109763238/bb764d4f-9bb0-4924-b189-25533e0358d7)
 
 The other service tests are very similar, either creating a new product in a mongodb database or creating an order for the order service. 
-
+#### Product Service
 Here we can see that a product is saved.
 ![Product Service](https://github.com/DomDevs2000/microservice-images/assets/109763238/8487e751-9de5-441d-b309-028c90e5a3ee)
-
+#### Order Service
 Test result for order service:
 ![Order Service](https://github.com/DomDevs2000/microservice-images/assets/109763238/e67768eb-17c9-4d62-a4a0-fe73fd3ed6bc)
 
+### Test Coverage 
 As we are integration testing each service's full function and not specific units, class coverage is the best indicator that we are in fact testing the correct things. Each test is achieving 75-100% class coverage.
+##### Order Service Coverage
 ![Order Service Coverage](https://github.com/DomDevs2000/microservice-images/assets/109763238/4ffe1842-0c3e-4cc8-a91f-9416cb513c10)
+##### Inventory Service Coverage
 ![Inventory Service Coverage](https://github.com/DomDevs2000/microservice-images/assets/109763238/40d1f66f-0076-4545-88c2-570ebc6dd45b)
+##### Product Service Coverage
 ![Product Service Coverage](https://github.com/DomDevs2000/microservice-images/assets/109763238/3acd80e9-840d-4aec-9a20-d61828c0237c)
 
 
