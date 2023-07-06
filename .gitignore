@@ -42,4 +42,4 @@ postgres-order/
 docker-compose2.yml
 
 
-/images/
+images/
