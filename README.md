@@ -4,7 +4,7 @@ View this project in [GitHub](https://github.com/DomDevs2000/ECommerce-Microserv
 
 For this project, I developed a fully integrated E-commerce service that allows users to create orders, check products
 and inventory and successfully place orders if products are in stock.
-Functionality includes product and inventory queries, order placements, and event-driven notifications using Kafka once orders are successfully placed. Ensured security with Spring WebFlux Security and OAuth 2.0 JWT authentication. Implemeneted inter-service communication using Spring Cloud Netflix Eureka with inter-service
+Functionality includes product and inventory queries, order placements, and event-driven notifications using Kafka once orders are successfully placed. Ensured security with Spring WebFlux Security and OAuth 2.0 JWT authentication. Implemented inter-service communication using Spring Cloud Netflix Eureka with inter-service
 fault tolerance using Spring Cloud Circuit Breaker via the Resilience4j library.
 Ensured website functionality with comprehensive unit testing using JUnit5 and MockMvc and integration testing using
 TestContainers.
@@ -29,10 +29,10 @@ This entire project is Dockerized using, Docker, Docker Hub and Google Cloud Jib
 
 ## Microservice Architecture
 
-![Architecture](images/ECommerce-Microservice-Architecture.drawio.png)
+![Architecture](screenshots/ECommerce-Microservice-Architecture.drawio.png)
 
 ## Why Did I Decide To Create This Project
-I decided to build a microservice architecture due to the fact I've not built one before and wanted to dive deeper and learn how to create a microservice project, find out its best uses and its drawbacks and how it compares to other types of architectures like monolith projects. The idea to create e E-commerce related services was due to the fact I wanted to have hands on experience on how real world services would work and interact under this specific architecture.
+I decided to build a microservice architecture due to the fact I've not built one before and wanted to dive deeper and learn how to create a microservice project, find out its best uses and its drawbacks and how it compares to other types of architectures like monolith projects. The idea to create e E-commerce related services was due to the fact I wanted to have hands-on experience on how real world services would work and interact under this specific architecture.
 
 
 ## What Did I Learn
@@ -43,11 +43,11 @@ Creating this project I learnt a lot about microservices architecture, connectin
 
 ### Eureka
 Once the docker containers have spun up via docker compose, we need to check that all services are registered to the Eureka discovery server. To do this we need to visit port ```8761``` and will be greeted with this screen:
-![Eureka](images/eureka.png)
+![Eureka](screenshots/eureka.png)
 Here we can see that all services are registered to the Eureka server.
 
 ### KeyCloak 
-Before we can use our services, we need to ensure we have an OAuth 2 JWT token, otherwise each service will return a 401 error for being unauthorised. To do this, we need to create a client inside of Keycloak, retrieve the realm token URI and the client secret, so that we can generate a token inside of a HTTP REST Client such as Postman or Insomnia.
+Before we can use our services, we need to ensure we have an OAuth 2 JWT token, otherwise each service will return a 401 error for being unauthorised. To do this, we need to create a client inside Keycloak, retrieve the realm token URI and the client secret, so that we can generate a token inside a HTTP REST Client such as Postman or Insomnia.
 
 ### Product Service
 
@@ -67,11 +67,11 @@ JSON, here is an example:
 To view the inventory, make a HTTP GET request to `/api/inventory?skuCode={skuCode}`. This will return the
 queried product, it's quantity count and will state if its in stock or not.
 
-![Is In Stock](images/inventory-service-get.png)
+![Is In Stock](https://github.com/DomDevs2000/microservice-images/assets/109763238/7e1ba039-1008-489d-bd9c-17257dc85579)
 
 Here is an example where the product is not in stock, we can see that it returns false.
 
-![Not in stock ](images/inventory-service-no-item.png)
+![Not in stock ](https://github.com/DomDevs2000/microservice-images/assets/109763238/bbf5b34f-3a91-4ad3-b937-ab2d8475d6de)
 
 
 ### Order Service
@@ -94,7 +94,7 @@ here is an example:
 The order service will query the inventory service, if the requested item is in stock, the order will be placed
 successfully, otherwise it will send a response stating that the product is not in stock.
 
-![Order Placed](images/order-service.png)
+![Order Placed]((https://github.com/DomDevs2000/microservice-images/assets/109763238/86c97f2d-1ae0-4133-a19e-28ca676c061b)
 
 
 
@@ -102,35 +102,36 @@ successfully, otherwise it will send a response stating that the product is not 
 
 Once the order is successfully placed, the notification service (powered by kafka) will return in the logs including the auto generated order id.
 
-![Notification](images/notification-service.png)
+![Notification](https://github.com/DomDevs2000/microservice-images/assets/109763238/82802670-f245-4ed7-a729-249e9d190434)
 
 
 ### Zipkin - Distributed Tracing
 
 Zipkin allows us to see the traces of each HTTP request. ZipKin helps gather timing data needed to troubleshoot latency problems in service architectures
 
-![Zipkin](images/zipkin.png)
+![Zipkin](https://github.com/DomDevs2000/microservice-images/assets/109763238/370a7008-2812-4606-b40a-c2cc4fcd4823)
 
 # Testing
-I implemented integration testing in this project, utilising the TestContainers plugin. This test allows me to spin up a container, with a database, build and save that object in the database. 3 services were tested (Product, inventory and order services) ensuring that the services' main function was carried out.
+I implemented integration testing in this project, utilising the TestContainers plugin. This test allows me to spin up a container with a database, build and save or search that object in the database. 3 services were tested (Product, Inventory and Order) ensuring that the services' main function was carried out.
 
 For example, this tests the inventory service and checks that the inventory was queried. The first test checks the container is running.
-![Inventory Test](images/test-inventory-code.png)
+![Inventory Test](https://github.com/DomDevs2000/microservice-images/assets/109763238/742b9b61-38f6-4c2e-b89d-a5d7e6fc8d21)
 
 Here we can see in the logs that the inventory was in fact checked, as the Inventory Service logs "Checking inventory" when a request is made.
-![Logs](images/test-inventory-logs.png)
+![Logs](https://github.com/DomDevs2000/microservice-images/assets/109763238/bb764d4f-9bb0-4924-b189-25533e0358d7)
 
-The other service tests are similar, either creating a new product in a mongodb database or creating an order for the order service. 
+The other service tests are very similar, either creating a new product in a mongodb database or creating an order for the order service. 
 
 Here we can see that a product is saved.
-![Product Service](images/test-product-service.png)
+![Product Service](https://github.com/DomDevs2000/microservice-images/assets/109763238/3acd80e9-840d-4aec-9a20-d61828c0237c)
 
-![Order Service](images/test-order-service.png)
+Test result for order service:
+![Order Service](https://github.com/DomDevs2000/microservice-images/assets/109763238/e67768eb-17c9-4d62-a4a0-fe73fd3ed6bc)
 
 As we are integration testing each service's full function and not specific units, class coverage is the best indicator that we are in fact testing the correct things. Each test is achieving 75-100% class coverage.
-![Order Service Coverage](images/test-coverage-order.png)
-![Inventory Service Coverage](images/test-coverage-inventory.png)
-![Product Service Coverage](images/test-coverage-product.png)
+![Order Service Coverage](https://github.com/DomDevs2000/microservice-images/assets/109763238/4ffe1842-0c3e-4cc8-a91f-9416cb513c10)
+![Inventory Service Coverage](https://github.com/DomDevs2000/microservice-images/assets/109763238/40d1f66f-0076-4545-88c2-570ebc6dd45b)
+![Product Service Coverage](https://github.com/DomDevs2000/microservice-images/assets/109763238/3acd80e9-840d-4aec-9a20-d61828c0237c)
 
 
 # Dockerizing The Project
