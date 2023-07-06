@@ -12,17 +12,17 @@ This entire project is Dockerized using, Docker, Docker Hub and Google Cloud Jib
 
 ## Technologies Used
 
--   Java 17,
--   Spring Boot 3.0.5,
--   Spring Security,
--   Spring Cloud Netflix Eureka(Service Discovery),
--   Apache Kafka (Event-Driven Architecture),
+-   Java 17
+-   Spring Boot 3.0.5
+-   Spring Security
+-   Spring Cloud Netflix Eureka(Service Discovery)
+-   Apache Kafka (Event-Driven Architecture)
 -   KeyCloak (OAuth 2.0 JWT)
--   Docker,
--   Resilience4J (Circuit Breaker),
--   MySQL,
--   MongoDB,
--   Zipkin (Distributed Tracing),
+-   Docker
+-   Resilience4J (Circuit Breaker)
+-   MySQL
+-   MongoDB
+-   Zipkin (Distributed Tracing)
 -   JUnit5 (Unit Testing)
 -   MockMVC (Unit Testing)
 -   TestContainers(Integration Testing)
@@ -36,8 +36,8 @@ I decided to build a microservice architecture due to the fact I've not built on
 
 
 ## What Did I Learn
-Creating this project I learnt a lot about microservices architecture, connecting each service using API gateways and inter-service communication using service discovery and registry as well as implementing inter-service fault tolerance. In addition to this, I have learnt a lot about how Kafka and event-driven architecture works.
-
+I learnt a lot about microservices architecture, connecting each service using API gateways and inter-service communication using service discovery and registry as well as implementing inter-service fault tolerance. In addition to this, I have learnt a lot about how Kafka and event-driven architecture works. I have also deepened my object-oriented programming skills by implementing consistent DTO and MVC design patterns. 
+I believe microservices are great, however, should be created once a project is already built as a monolithic and when needed to scale further, slowly migrate to microservices, instead of creating the entire project as a microservice from the start.
 
 # Services In Action
 
