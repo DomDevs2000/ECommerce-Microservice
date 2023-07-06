@@ -29,7 +29,7 @@ This entire project is Dockerized using, Docker, Docker Hub and Google Cloud Jib
 
 ## Microservice Architecture
 
-![Architecture](https://github.com/DomDevs2000/ECommerce-Microservice/assets/109763238/c731940f-ad27-433e-9d89-2c182403294b)
+![Architecture](images/ECommerce-Microservice-Architecture.drawio.png)
 
 ## Why Did I Decide To Create This Project
 I decided to build a microservice architecture due to the fact I've not built one before and wanted to dive deeper and learn how to create a microservice project, find out its best uses and its drawbacks and how it compares to other types of architectures like monolith projects. The idea to create e E-commerce related services was due to the fact I wanted to have hands on experience on how real world services would work and interact under this specific architecture.
@@ -67,7 +67,7 @@ JSON, here is an example:
 To view the inventory, make a HTTP GET request to `/api/inventory?skuCode={skuCode}`. This will return the
 queried product, it's quantity count and will state if its in stock or not.
 
-![inventory-service-get.png](images/inventory-service-get.png)
+![Is In Stock](images/inventory-service-get.png)
 
 Here is an example where the product is not in stock, we can see that it returns false.
 
