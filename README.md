@@ -29,7 +29,7 @@ This entire project is Dockerized using, Docker, Docker Hub and Google Cloud Jib
 
 ## Microservice Architecture
 
-![Architecture](screenshots/ECommerce-Microservice-Architecture.drawio.png)
+![Architecture](https://github.com/DomDevs2000/microservice-images/assets/109763238/0c55febe-3c8d-4514-bf4e-03d9453c5ecc)
 
 ## Why Did I Decide To Create This Project
 I decided to build a microservice architecture due to the fact I've not built one before and wanted to dive deeper and learn how to create a microservice project, find out its best uses and its drawbacks and how it compares to other types of architectures like monolith projects. The idea to create e E-commerce related services was due to the fact I wanted to have hands-on experience on how real world services would work and interact under this specific architecture.
@@ -43,7 +43,7 @@ Creating this project I learnt a lot about microservices architecture, connectin
 
 ### Eureka
 Once the docker containers have spun up via docker compose, we need to check that all services are registered to the Eureka discovery server. To do this we need to visit port ```8761``` and will be greeted with this screen:
-![Eureka](screenshots/eureka.png)
+![Eureka](https://github.com/DomDevs2000/microservice-images/assets/109763238/0f740a35-6a4f-48ea-9721-ddd8c27f6e9f)
 Here we can see that all services are registered to the Eureka server.
 
 ### KeyCloak 
@@ -94,7 +94,7 @@ here is an example:
 The order service will query the inventory service, if the requested item is in stock, the order will be placed
 successfully, otherwise it will send a response stating that the product is not in stock.
 
-![Order Placed]((https://github.com/DomDevs2000/microservice-images/assets/109763238/86c97f2d-1ae0-4133-a19e-28ca676c061b)
+![Order Placed](https://github.com/DomDevs2000/microservice-images/assets/109763238/86c97f2d-1ae0-4133-a19e-28ca676c061b)
 
 
 
@@ -123,7 +123,7 @@ Here we can see in the logs that the inventory was in fact checked, as the Inven
 The other service tests are very similar, either creating a new product in a mongodb database or creating an order for the order service. 
 
 Here we can see that a product is saved.
-![Product Service](https://github.com/DomDevs2000/microservice-images/assets/109763238/3acd80e9-840d-4aec-9a20-d61828c0237c)
+![Product Service](https://github.com/DomDevs2000/microservice-images/assets/109763238/8487e751-9de5-441d-b309-028c90e5a3ee)
 
 Test result for order service:
 ![Order Service](https://github.com/DomDevs2000/microservice-images/assets/109763238/e67768eb-17c9-4d62-a4a0-fe73fd3ed6bc)
