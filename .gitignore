@@ -35,10 +35,11 @@ realms/
 mongo-data/
 postgres-inventory/
 postgres-order/
-images/
+
 
 
 
 docker-compose2.yml
 
 
+/images/
