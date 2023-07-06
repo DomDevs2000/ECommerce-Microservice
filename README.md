@@ -43,7 +43,7 @@ Creating this project I learnt a lot about microservices architecture, connectin
 
 ### Eureka
 Once the docker containers have spun up via docker compose, we need to check that all services are registered to the Eureka discovery server. To do this we need to visit port ```8761``` and will be greeted with this screen:
-![Eureka](https://github.com/DomDevs2000/ECommerce-Microservice/assets/109763238/de52d47f-269a-411a-8f13-fb04ca56e297)
+![Eureka](images/eureka.png)
 Here we can see that all services are registered to the Eureka server.
 
 ### KeyCloak 
@@ -67,11 +67,11 @@ JSON, here is an example:
 To view the inventory, make a HTTP GET request to `/api/inventory?skuCode={skuCode}`. This will return the
 queried product, it's quantity count and will state if its in stock or not.
 
-![Inventory Service](https://github.com/DomDevs2000/microservice-images/assets/109763238/7e1ba039-1008-489d-bd9c-17257dc85579)
+![inventory-service-get.png](images/inventory-service-get.png)
 
 Here is an example where the product is not in stock, we can see that it returns false.
 
-![Not in stock ](https://github.com/DomDevs2000/microservice-images/assets/109763238/8e7dbc7c-645f-4596-9ec3-cd1337012729)
+![Not in stock ](images/inventory-service-no-item.png)
 
 
 ### Order Service
@@ -88,27 +88,49 @@ here is an example:
    "price": 1000
     }
 ]
-}```
+}
+```
 
 The order service will query the inventory service, if the requested item is in stock, the order will be placed
 successfully, otherwise it will send a response stating that the product is not in stock.
 
-![Order Placed](https://github.com/DomDevs2000/microservice-images/assets/109763238/86c97f2d-1ae0-4133-a19e-28ca676c061b)
+![Order Placed](images/order-service.png)
 
 
 
-### Notification
+### Notification Service
 
 Once the order is successfully placed, the notification service (powered by kafka) will return in the logs including the auto generated order id.
 
-![Notification](https://github.com/DomDevs2000/microservice-images/assets/109763238/82802670-f245-4ed7-a729-249e9d190434)
+![Notification](images/notification-service.png)
 
 
 ### Zipkin - Distributed Tracing
 
 Zipkin allows us to see the traces of each HTTP request. ZipKin helps gather timing data needed to troubleshoot latency problems in service architectures
 
-![example](https://github.com/DomDevs2000/microservice-images/assets/109763238/370a7008-2812-4606-b40a-c2cc4fcd4823)
+![Zipkin](images/zipkin.png)
+
+# Testing
+I implemented integration testing in this project, utilising the TestContainers plugin. This test allows me to spin up a container, with a database, build and save that object in the database. 3 services were tested (Product, inventory and order services) ensuring that the services' main function was carried out.
+
+For example, this tests the inventory service and checks that the inventory was queried. The first test checks the container is running.
+![Inventory Test](images/test-inventory-code.png)
+
+Here we can see in the logs that the inventory was in fact checked, as the Inventory Service logs "Checking inventory" when a request is made.
+![Logs](images/test-inventory-logs.png)
+
+The other service tests are similar, either creating a new product in a mongodb database or creating an order for the order service. 
+
+Here we can see that a product is saved.
+![Product Service](images/test-product-service.png)
+
+![Order Service](images/test-order-service.png)
+
+As we are integration testing each service's full function and not specific units, class coverage is the best indicator that we are in fact testing the correct things. Each test is achieving 75-100% class coverage.
+![Order Service Coverage](images/test-coverage-order.png)
+![Inventory Service Coverage](images/test-coverage-inventory.png)
+![Product Service Coverage](images/test-coverage-product.png)
 
 
 # Dockerizing The Project
