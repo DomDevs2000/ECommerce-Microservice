@@ -31,12 +31,14 @@ target/
 .DS_Store
 
 mysql_keycloak_data/
-
 realms/
 mongo-data/
 postgres-inventory/
 postgres-order/
+images/
 
 
 
 docker-compose2.yml
+
+
