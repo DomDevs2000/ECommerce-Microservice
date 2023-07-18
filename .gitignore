@@ -35,7 +35,7 @@ realms/
 mongo-data/
 postgres-inventory/
 postgres-order/
-screenshots/
+
 
 docker-compose2.yml
 
